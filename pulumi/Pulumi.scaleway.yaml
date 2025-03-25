@@ -1,0 +1,5 @@
+encryptionsalt: v1:G0sdswyspGE=:v1:qvr//j1wOQ/TNYdn:+RDSqqZc8RK/NTKkMh0paajyuXmSgw==
+config:
+  trustgraph-scaleway:environment: dev
+  trustgraph-scaleway:region: fr-par
+  trustgraph-scaleway:ai-model: mistral-nemo-instruct-2407

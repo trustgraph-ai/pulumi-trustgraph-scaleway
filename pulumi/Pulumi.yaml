@@ -1,0 +1,3 @@
+name: trustgraph-scaleway
+description: Trustgraph deployment on Scaleway
+runtime: nodejs
