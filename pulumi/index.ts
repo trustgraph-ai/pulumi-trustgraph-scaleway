@@ -81,7 +81,7 @@ const application = new scaleway.iam.Application(
     {
         name: "TrustGraph"
     },
-    { provider: provider }
+    { provider: provider, dependsOn: [ nodePool ] }
 );
 
 // Grant the application access to gen AI models
