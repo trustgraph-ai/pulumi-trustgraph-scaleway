@@ -60,11 +60,12 @@ const nodePool = new scaleway.kubernetes.Pool(
     { provider: provider }
 );
 
-// Get the kubeconfig for the cluster
-const kubeconfig = pulumi.secret(
-    cluster.kubeconfigs.apply(
-        kc => kc[0].configFile
-    )
+// Get the kubeconfig for the cluster.  This has to depend on the node pool
+// being setup
+const kubeconfig = pulumi.all([
+    cluster.kubeconfigs, nodePool.id
+]).apply(
+    ([kconf, node]) => kconf[0].configFile
 );
 
 // Create a Kubernetes provider using the cluster's kubeconfig
