@@ -29,10 +29,19 @@ but:
 Roadmap to deploy is:
 - Install Pulumi
 - Setup Pulumi
-- Configure your environment with Azure credentials using `az login`
+- Configure your environment with Scaleway credentials, generate an API key
 - Modify the local configuration to do what you want
 - Deploy
 - Use the system
+
+Setting the keys up from the API key looks like this...
+
+```
+export SCW_ACCESS_KEY=KEYGOESHERE
+export SCW_SECRET_KEY=SECRETKEYGOESHERE
+export SCW_DEFAULT_ORGANIZATION_ID=ORGKEYGOESHERE
+export SCW_DEFAULT_PROJECT_ID=PROJECTKEYGOESHERE
+```
 
 # Deploy
 
@@ -110,7 +119,7 @@ If everything works:
 To connect to the Kubernetes cluster...
 
 ```
-kubectl --kubeconfig kubeconfig -n trustgraph get pods
+kubectl --kubeconfig kube.cfg -n trustgraph get pods
 ```
 
 If something goes wrong while deploying, retry before giving up.
@@ -124,9 +133,9 @@ port-forwarding.  You'll need multiple terminal windows to run each of
 these commands:
 
 ```
-kubectl --kubeconfig kube.cfg port-forward service/api-gateway 8088:8088
-kubectl --kubeconfig kube.cfg port-forward service/workbench-ui 8888:8888
-kubectl --kubeconfig kube.cfg port-forward service/grafana 3000:3000
+kubectl --kubeconfig kube.cfg -n trustgraph port-forward service/api-gateway 8088:8088
+kubectl --kubeconfig kube.cfg -n trustgraph port-forward service/workbench-ui 8888:8888
+kubectl --kubeconfig kube.cfg -n trustgraph port-forward service/grafana 3000:3000
 ```
 
 This will allow you to access Grafana and the Workbench UI from your local

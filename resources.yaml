@@ -46,7 +46,7 @@ items:
           - agent-manager-react
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: agent-manager
           resources:
             limits:
@@ -103,7 +103,7 @@ items:
               secretKeyRef:
                 key: gateway-secret
                 name: gateway-secret
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: api-gateway
           ports:
           - containerPort: 8000
@@ -229,7 +229,7 @@ items:
           - '2000'
           - --chunk-overlap
           - '100'
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: chunker
           resources:
             limits:
@@ -276,7 +276,7 @@ items:
           - config-svc
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: config-svc
           resources:
             limits:
@@ -323,7 +323,7 @@ items:
           - document-embeddings
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: document-embeddings
           resources:
             limits:
@@ -372,7 +372,7 @@ items:
           - pulsar://pulsar:6650
           - --doc-limit
           - '20'
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: document-rag
           resources:
             limits:
@@ -419,9 +419,11 @@ items:
           - embeddings-fastembed
           - -p
           - pulsar://pulsar:6650
+          - --concurrency
+          - '1'
           - -m
           - sentence-transformers/all-MiniLM-L6-v2
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: embeddings
           resources:
             limits:
@@ -1001,7 +1003,7 @@ items:
           - graph-embeddings
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: graph-embeddings
           resources:
             limits:
@@ -1056,7 +1058,7 @@ items:
           - '400'
           - --max-path-length
           - '2'
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: graph-rag
           resources:
             limits:
@@ -1112,9 +1114,12 @@ items:
             simple natural language question.","name":"question","type":"string"}],"config":{"input":"question"},"description":"This
             tool queries a knowledge base that holds information about XYZ.  This
             should be a natural language question.","id":"sample-query","name":"Sample
-            query","type":"knowledge-query"}},"flow-classes":{"default":{"class":{"de-query:{class}":{"request":"non-persistent://tg/request/document-embeddings:{class}","response":"non-persistent://tg/response/document-embeddings:{class}"},"document-rag:{class}":{"document-embeddings-request":"non-persistent://tg/request/document-embeddings:{class}","document-embeddings-response":"non-persistent://tg/response/document-embeddings:{class}","embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","prompt-request":"non-persistent://tg/request/prompt-rag:{class}","prompt-response":"non-persistent://tg/response/prompt-rag:{class}","request":"non-persistent://tg/request/document-rag:{class}","response":"non-persistent://tg/response/document-rag:{class}"},"embeddings:{class}":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"ge-query:{class}":{"request":"non-persistent://tg/request/graph-embeddings:{class}","response":"non-persistent://tg/response/graph-embeddings:{class}"},"graph-rag:{class}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","graph-embeddings-request":"non-persistent://tg/request/graph-embeddings:{class}","graph-embeddings-response":"non-persistent://tg/response/graph-embeddings:{class}","prompt-request":"non-persistent://tg/request/prompt-rag:{class}","prompt-response":"non-persistent://tg/response/prompt-rag:{class}","request":"non-persistent://tg/request/graph-rag:{class}","response":"non-persistent://tg/response/graph-rag:{class}","triples-request":"non-persistent://tg/request/triples:{class}","triples-response":"non-persistent://tg/response/triples:{class}"},"metering-rag:{class}":{"input":"non-persistent://tg/response/text-completion-rag:{class}"},"metering:{class}":{"input":"non-persistent://tg/response/text-completion:{class}"},"prompt-rag:{class}":{"request":"non-persistent://tg/request/prompt-rag:{class}","response":"non-persistent://tg/response/prompt-rag:{class}","text-completion-request":"non-persistent://tg/request/text-completion-rag:{class}","text-completion-response":"non-persistent://tg/response/text-completion-rag:{class}"},"prompt:{class}":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"text-completion-rag:{class}":{"request":"non-persistent://tg/request/text-completion-rag:{class}","response":"non-persistent://tg/response/text-completion-rag:{class}"},"text-completion:{class}":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"triples-query:{class}":{"request":"non-persistent://tg/request/triples:{class}","response":"non-persistent://tg/response/triples:{class}"}},"description":"Default
-            flow class, supports GraphRAG and document RAG","flow":{"agent-manager:{id}":{"graph-rag-request":"non-persistent://tg/request/graph-rag:{class}","graph-rag-response":"non-persistent://tg/response/graph-rag:{class}","next":"non-persistent://tg/request/agent:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","request":"non-persistent://tg/request/agent:{id}","response":"non-persistent://tg/response/agent:{id}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"chunker:{id}":{"input":"persistent://tg/flow/text-document-load:{id}","output":"persistent://tg/flow/chunk-load:{id}"},"de-write:{id}":{"input":"persistent://tg/flow/document-embeddings-store:{id}"},"document-embeddings:{id}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","input":"persistent://tg/flow/chunk-load:{id}","output":"persistent://tg/flow/document-embeddings-store:{id}"},"ge-write:{id}":{"input":"persistent://tg/flow/graph-embeddings-store:{id}"},"graph-embeddings:{id}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","input":"persistent://tg/flow/entity-contexts-load:{id}","output":"persistent://tg/flow/graph-embeddings-store:{id}"},"kg-extract-definitions:{id}":{"entity-contexts":"persistent://tg/flow/entity-contexts-load:{id}","input":"persistent://tg/flow/chunk-load:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","triples":"persistent://tg/flow/triples-store:{id}"},"kg-extract-relationships:{id}":{"input":"persistent://tg/flow/chunk-load:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","triples":"persistent://tg/flow/triples-store:{id}"},"kg-store:{id}":{"graph-embeddings-input":"persistent://tg/flow/graph-embeddings-store:{id}","triples-input":"persistent://tg/flow/triples-store:{id}"},"pdf-decoder:{id}":{"input":"persistent://tg/flow/document-load:{id}","output":"persistent://tg/flow/text-document-load:{id}"},"triples-write:{id}":{"input":"persistent://tg/flow/triples-store:{id}"}},"interfaces":{"agent":{"request":"non-persistent://tg/request/agent:{id}","response":"non-persistent://tg/response/agent:{id}"},"document-embeddings":{"request":"non-persistent://tg/request/document-embeddings:{class}","response":"non-persistent://tg/response/document-embeddings:{class}"},"document-embeddings-store":"persistent://tg/flow/document-embeddings-store:{id}","document-load":"persistent://tg/flow/document-load:{id}","document-rag":{"request":"non-persistent://tg/request/document-rag:{class}","response":"non-persistent://tg/response/document-rag:{class}"},"embeddings":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"entity-contexts-load":"persistent://tg/flow/entity-contexts-load:{id}","graph-embeddings":{"request":"non-persistent://tg/request/graph-embeddings:{class}","response":"non-persistent://tg/response/graph-embeddings:{class}"},"graph-embeddings-store":"persistent://tg/flow/graph-embeddings-store:{id}","graph-rag":{"request":"non-persistent://tg/request/graph-rag:{class}","response":"non-persistent://tg/response/graph-rag:{class}"},"prompt":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}"},"text-completion":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"text-load":"persistent://tg/flow/text-document-load:{id}","triples":{"request":"non-persistent://tg/request/triples:{class}","response":"non-persistent://tg/response/triples:{class}"},"triples-store":"persistent://tg/flow/triples-store:{id}"},"tags":["document-rag","graph-rag","knowledge-extraction"]}},"flows":{"0000":{"class-name":"default","description":"Default
-            processing flow","interfaces":{"agent":{"request":"non-persistent://tg/request/agent:0000","response":"non-persistent://tg/response/agent:0000"},"document-embeddings":{"request":"non-persistent://tg/request/document-embeddings:default","response":"non-persistent://tg/response/document-embeddings:default"},"document-embeddings-store":"persistent://tg/flow/document-embeddings-store:0000","document-load":"persistent://tg/flow/document-load:0000","document-rag":{"request":"non-persistent://tg/request/document-rag:default","response":"non-persistent://tg/response/document-rag:default"},"embeddings":{"request":"non-persistent://tg/request/embeddings:default","response":"non-persistent://tg/response/embeddings:default"},"entity-contexts-load":"persistent://tg/flow/entity-contexts-load:0000","graph-embeddings":{"request":"non-persistent://tg/request/graph-embeddings:default","response":"non-persistent://tg/response/graph-embeddings:default"},"graph-embeddings-store":"persistent://tg/flow/graph-embeddings-store:0000","graph-rag":{"request":"non-persistent://tg/request/graph-rag:default","response":"non-persistent://tg/response/graph-rag:default"},"prompt":{"request":"non-persistent://tg/request/prompt:default","response":"non-persistent://tg/response/prompt:default"},"text-completion":{"request":"non-persistent://tg/request/text-completion:default","response":"non-persistent://tg/response/text-completion:default"},"text-load":"persistent://tg/flow/text-document-load:0000","triples":{"request":"non-persistent://tg/request/triples:default","response":"non-persistent://tg/response/triples:default"},"triples-store":"persistent://tg/flow/triples-store:0000"}}},"flows-active":{"agent-manager":{"0000":{"graph-rag-request":"non-persistent://tg/request/graph-rag:default","graph-rag-response":"non-persistent://tg/response/graph-rag:default","next":"non-persistent://tg/request/agent:0000","prompt-request":"non-persistent://tg/request/prompt:default","prompt-response":"non-persistent://tg/response/prompt:default","request":"non-persistent://tg/request/agent:0000","response":"non-persistent://tg/response/agent:0000","text-completion-request":"non-persistent://tg/request/text-completion:default","text-completion-response":"non-persistent://tg/response/text-completion:default"}},"chunker":{"0000":{"input":"persistent://tg/flow/text-document-load:0000","output":"persistent://tg/flow/chunk-load:0000"}},"de-query":{"default":{"request":"non-persistent://tg/request/document-embeddings:default","response":"non-persistent://tg/response/document-embeddings:default"}},"de-write":{"0000":{"input":"persistent://tg/flow/document-embeddings-store:0000"}},"document-embeddings":{"0000":{"embeddings-request":"non-persistent://tg/request/embeddings:default","embeddings-response":"non-persistent://tg/response/embeddings:default","input":"persistent://tg/flow/chunk-load:0000","output":"persistent://tg/flow/document-embeddings-store:0000"}},"document-rag":{"default":{"document-embeddings-request":"non-persistent://tg/request/document-embeddings:default","document-embeddings-response":"non-persistent://tg/response/document-embeddings:default","embeddings-request":"non-persistent://tg/request/embeddings:default","embeddings-response":"non-persistent://tg/response/embeddings:default","prompt-request":"non-persistent://tg/request/prompt-rag:default","prompt-response":"non-persistent://tg/response/prompt-rag:default","request":"non-persistent://tg/request/document-rag:default","response":"non-persistent://tg/response/document-rag:default"}},"embeddings":{"default":{"request":"non-persistent://tg/request/embeddings:default","response":"non-persistent://tg/response/embeddings:default"}},"ge-query":{"default":{"request":"non-persistent://tg/request/graph-embeddings:default","response":"non-persistent://tg/response/graph-embeddings:default"}},"ge-write":{"0000":{"input":"persistent://tg/flow/graph-embeddings-store:0000"}},"graph-embeddings":{"0000":{"embeddings-request":"non-persistent://tg/request/embeddings:default","embeddings-response":"non-persistent://tg/response/embeddings:default","input":"persistent://tg/flow/entity-contexts-load:0000","output":"persistent://tg/flow/graph-embeddings-store:0000"}},"graph-rag":{"default":{"embeddings-request":"non-persistent://tg/request/embeddings:default","embeddings-response":"non-persistent://tg/response/embeddings:default","graph-embeddings-request":"non-persistent://tg/request/graph-embeddings:default","graph-embeddings-response":"non-persistent://tg/response/graph-embeddings:default","prompt-request":"non-persistent://tg/request/prompt-rag:default","prompt-response":"non-persistent://tg/response/prompt-rag:default","request":"non-persistent://tg/request/graph-rag:default","response":"non-persistent://tg/response/graph-rag:default","triples-request":"non-persistent://tg/request/triples:default","triples-response":"non-persistent://tg/response/triples:default"}},"kg-extract-definitions":{"0000":{"entity-contexts":"persistent://tg/flow/entity-contexts-load:0000","input":"persistent://tg/flow/chunk-load:0000","prompt-request":"non-persistent://tg/request/prompt:default","prompt-response":"non-persistent://tg/response/prompt:default","triples":"persistent://tg/flow/triples-store:0000"}},"kg-extract-relationships":{"0000":{"input":"persistent://tg/flow/chunk-load:0000","prompt-request":"non-persistent://tg/request/prompt:default","prompt-response":"non-persistent://tg/response/prompt:default","triples":"persistent://tg/flow/triples-store:0000"}},"kg-store":{"0000":{"graph-embeddings-input":"persistent://tg/flow/graph-embeddings-store:0000","triples-input":"persistent://tg/flow/triples-store:0000"}},"metering":{"default":{"input":"non-persistent://tg/response/text-completion:default"}},"metering-rag":{"default":{"input":"non-persistent://tg/response/text-completion-rag:default"}},"pdf-decoder":{"0000":{"input":"persistent://tg/flow/document-load:0000","output":"persistent://tg/flow/text-document-load:0000"}},"prompt":{"default":{"request":"non-persistent://tg/request/prompt:default","response":"non-persistent://tg/response/prompt:default","text-completion-request":"non-persistent://tg/request/text-completion:default","text-completion-response":"non-persistent://tg/response/text-completion:default"}},"prompt-rag":{"default":{"request":"non-persistent://tg/request/prompt-rag:default","response":"non-persistent://tg/response/prompt-rag:default","text-completion-request":"non-persistent://tg/request/text-completion-rag:default","text-completion-response":"non-persistent://tg/response/text-completion-rag:default"}},"text-completion":{"default":{"request":"non-persistent://tg/request/text-completion:default","response":"non-persistent://tg/response/text-completion:default"}},"text-completion-rag":{"default":{"request":"non-persistent://tg/request/text-completion-rag:default","response":"non-persistent://tg/response/text-completion-rag:default"}},"triples-query":{"default":{"request":"non-persistent://tg/request/triples:default","response":"non-persistent://tg/response/triples:default"}},"triples-write":{"0000":{"input":"persistent://tg/flow/triples-store:0000"}}},"interface-descriptions":{"agent":{"description":"Agent
+            query","type":"knowledge-query"}},"flow-classes":{"document-rag":{"class":{"de-query:{class}":{"request":"non-persistent://tg/request/document-embeddings:{class}","response":"non-persistent://tg/response/document-embeddings:{class}"},"document-rag:{class}":{"document-embeddings-request":"non-persistent://tg/request/document-embeddings:{class}","document-embeddings-response":"non-persistent://tg/response/document-embeddings:{class}","embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","prompt-request":"non-persistent://tg/request/prompt-rag:{class}","prompt-response":"non-persistent://tg/response/prompt-rag:{class}","request":"non-persistent://tg/request/document-rag:{class}","response":"non-persistent://tg/response/document-rag:{class}"},"embeddings:{class}":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"metering-rag:{class}":{"input":"non-persistent://tg/response/text-completion-rag:{class}"},"metering:{class}":{"input":"non-persistent://tg/response/text-completion:{class}"},"prompt-rag:{class}":{"request":"non-persistent://tg/request/prompt-rag:{class}","response":"non-persistent://tg/response/prompt-rag:{class}","text-completion-request":"non-persistent://tg/request/text-completion-rag:{class}","text-completion-response":"non-persistent://tg/response/text-completion-rag:{class}"},"prompt:{class}":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"text-completion-rag:{class}":{"request":"non-persistent://tg/request/text-completion-rag:{class}","response":"non-persistent://tg/response/text-completion-rag:{class}"},"text-completion:{class}":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"}},"description":"DocumentRAG
+            only","flow":{"chunker:{id}":{"input":"persistent://tg/flow/text-document-load:{id}","output":"persistent://tg/flow/chunk-load:{id}"},"de-write:{id}":{"input":"persistent://tg/flow/document-embeddings-store:{id}"},"document-embeddings:{id}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","input":"persistent://tg/flow/chunk-load:{id}","output":"persistent://tg/flow/document-embeddings-store:{id}"},"pdf-decoder:{id}":{"input":"persistent://tg/flow/document-load:{id}","output":"persistent://tg/flow/text-document-load:{id}"}},"interfaces":{"document-embeddings":{"request":"non-persistent://tg/request/document-embeddings:{class}","response":"non-persistent://tg/response/document-embeddings:{class}"},"document-embeddings-store":"persistent://tg/flow/document-embeddings-store:{id}","document-load":"persistent://tg/flow/document-load:{id}","document-rag":{"request":"non-persistent://tg/request/document-rag:{class}","response":"non-persistent://tg/response/document-rag:{class}"},"embeddings":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"prompt":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}"},"text-completion":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"text-load":"persistent://tg/flow/text-document-load:{id}"},"tags":["document-rag"]},"document-rag+graph-rag":{"class":{"de-query:{class}":{"request":"non-persistent://tg/request/document-embeddings:{class}","response":"non-persistent://tg/response/document-embeddings:{class}"},"document-rag:{class}":{"document-embeddings-request":"non-persistent://tg/request/document-embeddings:{class}","document-embeddings-response":"non-persistent://tg/response/document-embeddings:{class}","embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","prompt-request":"non-persistent://tg/request/prompt-rag:{class}","prompt-response":"non-persistent://tg/response/prompt-rag:{class}","request":"non-persistent://tg/request/document-rag:{class}","response":"non-persistent://tg/response/document-rag:{class}"},"embeddings:{class}":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"ge-query:{class}":{"request":"non-persistent://tg/request/graph-embeddings:{class}","response":"non-persistent://tg/response/graph-embeddings:{class}"},"graph-rag:{class}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","graph-embeddings-request":"non-persistent://tg/request/graph-embeddings:{class}","graph-embeddings-response":"non-persistent://tg/response/graph-embeddings:{class}","prompt-request":"non-persistent://tg/request/prompt-rag:{class}","prompt-response":"non-persistent://tg/response/prompt-rag:{class}","request":"non-persistent://tg/request/graph-rag:{class}","response":"non-persistent://tg/response/graph-rag:{class}","triples-request":"non-persistent://tg/request/triples:{class}","triples-response":"non-persistent://tg/response/triples:{class}"},"metering-rag:{class}":{"input":"non-persistent://tg/response/text-completion-rag:{class}"},"metering:{class}":{"input":"non-persistent://tg/response/text-completion:{class}"},"prompt-rag:{class}":{"request":"non-persistent://tg/request/prompt-rag:{class}","response":"non-persistent://tg/response/prompt-rag:{class}","text-completion-request":"non-persistent://tg/request/text-completion-rag:{class}","text-completion-response":"non-persistent://tg/response/text-completion-rag:{class}"},"prompt:{class}":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"text-completion-rag:{class}":{"request":"non-persistent://tg/request/text-completion-rag:{class}","response":"non-persistent://tg/response/text-completion-rag:{class}"},"text-completion:{class}":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"triples-query:{class}":{"request":"non-persistent://tg/request/triples:{class}","response":"non-persistent://tg/response/triples:{class}"}},"description":"Supports
+            GraphRAG and document RAG, no core creation","flow":{"agent-manager:{id}":{"graph-rag-request":"non-persistent://tg/request/graph-rag:{class}","graph-rag-response":"non-persistent://tg/response/graph-rag:{class}","next":"non-persistent://tg/request/agent:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","request":"non-persistent://tg/request/agent:{id}","response":"non-persistent://tg/response/agent:{id}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"chunker:{id}":{"input":"persistent://tg/flow/text-document-load:{id}","output":"persistent://tg/flow/chunk-load:{id}"},"de-write:{id}":{"input":"persistent://tg/flow/document-embeddings-store:{id}"},"document-embeddings:{id}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","input":"persistent://tg/flow/chunk-load:{id}","output":"persistent://tg/flow/document-embeddings-store:{id}"},"ge-write:{id}":{"input":"persistent://tg/flow/graph-embeddings-store:{id}"},"graph-embeddings:{id}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","input":"persistent://tg/flow/entity-contexts-load:{id}","output":"persistent://tg/flow/graph-embeddings-store:{id}"},"kg-extract-definitions:{id}":{"entity-contexts":"persistent://tg/flow/entity-contexts-load:{id}","input":"persistent://tg/flow/chunk-load:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","triples":"persistent://tg/flow/triples-store:{id}"},"kg-extract-relationships:{id}":{"input":"persistent://tg/flow/chunk-load:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","triples":"persistent://tg/flow/triples-store:{id}"},"pdf-decoder:{id}":{"input":"persistent://tg/flow/document-load:{id}","output":"persistent://tg/flow/text-document-load:{id}"},"triples-write:{id}":{"input":"persistent://tg/flow/triples-store:{id}"}},"interfaces":{"agent":{"request":"non-persistent://tg/request/agent:{id}","response":"non-persistent://tg/response/agent:{id}"},"document-embeddings":{"request":"non-persistent://tg/request/document-embeddings:{class}","response":"non-persistent://tg/response/document-embeddings:{class}"},"document-embeddings-store":"persistent://tg/flow/document-embeddings-store:{id}","document-load":"persistent://tg/flow/document-load:{id}","document-rag":{"request":"non-persistent://tg/request/document-rag:{class}","response":"non-persistent://tg/response/document-rag:{class}"},"embeddings":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"entity-contexts-load":"persistent://tg/flow/entity-contexts-load:{id}","graph-embeddings":{"request":"non-persistent://tg/request/graph-embeddings:{class}","response":"non-persistent://tg/response/graph-embeddings:{class}"},"graph-embeddings-store":"persistent://tg/flow/graph-embeddings-store:{id}","graph-rag":{"request":"non-persistent://tg/request/graph-rag:{class}","response":"non-persistent://tg/response/graph-rag:{class}"},"prompt":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}"},"text-completion":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"text-load":"persistent://tg/flow/text-document-load:{id}","triples":{"request":"non-persistent://tg/request/triples:{class}","response":"non-persistent://tg/response/triples:{class}"},"triples-store":"persistent://tg/flow/triples-store:{id}"},"tags":["document-rag","graph-rag","knowledge-extraction"]},"document-rag+graph-rag+kgcore":{"class":{"de-query:{class}":{"request":"non-persistent://tg/request/document-embeddings:{class}","response":"non-persistent://tg/response/document-embeddings:{class}"},"document-rag:{class}":{"document-embeddings-request":"non-persistent://tg/request/document-embeddings:{class}","document-embeddings-response":"non-persistent://tg/response/document-embeddings:{class}","embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","prompt-request":"non-persistent://tg/request/prompt-rag:{class}","prompt-response":"non-persistent://tg/response/prompt-rag:{class}","request":"non-persistent://tg/request/document-rag:{class}","response":"non-persistent://tg/response/document-rag:{class}"},"embeddings:{class}":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"ge-query:{class}":{"request":"non-persistent://tg/request/graph-embeddings:{class}","response":"non-persistent://tg/response/graph-embeddings:{class}"},"graph-rag:{class}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","graph-embeddings-request":"non-persistent://tg/request/graph-embeddings:{class}","graph-embeddings-response":"non-persistent://tg/response/graph-embeddings:{class}","prompt-request":"non-persistent://tg/request/prompt-rag:{class}","prompt-response":"non-persistent://tg/response/prompt-rag:{class}","request":"non-persistent://tg/request/graph-rag:{class}","response":"non-persistent://tg/response/graph-rag:{class}","triples-request":"non-persistent://tg/request/triples:{class}","triples-response":"non-persistent://tg/response/triples:{class}"},"metering-rag:{class}":{"input":"non-persistent://tg/response/text-completion-rag:{class}"},"metering:{class}":{"input":"non-persistent://tg/response/text-completion:{class}"},"prompt-rag:{class}":{"request":"non-persistent://tg/request/prompt-rag:{class}","response":"non-persistent://tg/response/prompt-rag:{class}","text-completion-request":"non-persistent://tg/request/text-completion-rag:{class}","text-completion-response":"non-persistent://tg/response/text-completion-rag:{class}"},"prompt:{class}":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"text-completion-rag:{class}":{"request":"non-persistent://tg/request/text-completion-rag:{class}","response":"non-persistent://tg/response/text-completion-rag:{class}"},"text-completion:{class}":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"triples-query:{class}":{"request":"non-persistent://tg/request/triples:{class}","response":"non-persistent://tg/response/triples:{class}"}},"description":"GraphRAG
+            + DocumentRAG + knowledge core creation","flow":{"agent-manager:{id}":{"graph-rag-request":"non-persistent://tg/request/graph-rag:{class}","graph-rag-response":"non-persistent://tg/response/graph-rag:{class}","next":"non-persistent://tg/request/agent:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","request":"non-persistent://tg/request/agent:{id}","response":"non-persistent://tg/response/agent:{id}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"chunker:{id}":{"input":"persistent://tg/flow/text-document-load:{id}","output":"persistent://tg/flow/chunk-load:{id}"},"de-write:{id}":{"input":"persistent://tg/flow/document-embeddings-store:{id}"},"document-embeddings:{id}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","input":"persistent://tg/flow/chunk-load:{id}","output":"persistent://tg/flow/document-embeddings-store:{id}"},"ge-write:{id}":{"input":"persistent://tg/flow/graph-embeddings-store:{id}"},"graph-embeddings:{id}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","input":"persistent://tg/flow/entity-contexts-load:{id}","output":"persistent://tg/flow/graph-embeddings-store:{id}"},"kg-extract-definitions:{id}":{"entity-contexts":"persistent://tg/flow/entity-contexts-load:{id}","input":"persistent://tg/flow/chunk-load:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","triples":"persistent://tg/flow/triples-store:{id}"},"kg-extract-relationships:{id}":{"input":"persistent://tg/flow/chunk-load:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","triples":"persistent://tg/flow/triples-store:{id}"},"kg-store:{id}":{"graph-embeddings-input":"persistent://tg/flow/graph-embeddings-store:{id}","triples-input":"persistent://tg/flow/triples-store:{id}"},"pdf-decoder:{id}":{"input":"persistent://tg/flow/document-load:{id}","output":"persistent://tg/flow/text-document-load:{id}"},"triples-write:{id}":{"input":"persistent://tg/flow/triples-store:{id}"}},"interfaces":{"agent":{"request":"non-persistent://tg/request/agent:{id}","response":"non-persistent://tg/response/agent:{id}"},"document-embeddings":{"request":"non-persistent://tg/request/document-embeddings:{class}","response":"non-persistent://tg/response/document-embeddings:{class}"},"document-embeddings-store":"persistent://tg/flow/document-embeddings-store:{id}","document-load":"persistent://tg/flow/document-load:{id}","document-rag":{"request":"non-persistent://tg/request/document-rag:{class}","response":"non-persistent://tg/response/document-rag:{class}"},"embeddings":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"entity-contexts-load":"persistent://tg/flow/entity-contexts-load:{id}","graph-embeddings":{"request":"non-persistent://tg/request/graph-embeddings:{class}","response":"non-persistent://tg/response/graph-embeddings:{class}"},"graph-embeddings-store":"persistent://tg/flow/graph-embeddings-store:{id}","graph-rag":{"request":"non-persistent://tg/request/graph-rag:{class}","response":"non-persistent://tg/response/graph-rag:{class}"},"prompt":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}"},"text-completion":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"text-load":"persistent://tg/flow/text-document-load:{id}","triples":{"request":"non-persistent://tg/request/triples:{class}","response":"non-persistent://tg/response/triples:{class}"},"triples-store":"persistent://tg/flow/triples-store:{id}"},"tags":["document-rag","graph-rag","knowledge-extraction"]},"graph-rag":{"class":{"embeddings:{class}":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"ge-query:{class}":{"request":"non-persistent://tg/request/graph-embeddings:{class}","response":"non-persistent://tg/response/graph-embeddings:{class}"},"graph-rag:{class}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","graph-embeddings-request":"non-persistent://tg/request/graph-embeddings:{class}","graph-embeddings-response":"non-persistent://tg/response/graph-embeddings:{class}","prompt-request":"non-persistent://tg/request/prompt-rag:{class}","prompt-response":"non-persistent://tg/response/prompt-rag:{class}","request":"non-persistent://tg/request/graph-rag:{class}","response":"non-persistent://tg/response/graph-rag:{class}","triples-request":"non-persistent://tg/request/triples:{class}","triples-response":"non-persistent://tg/response/triples:{class}"},"metering-rag:{class}":{"input":"non-persistent://tg/response/text-completion-rag:{class}"},"metering:{class}":{"input":"non-persistent://tg/response/text-completion:{class}"},"prompt-rag:{class}":{"request":"non-persistent://tg/request/prompt-rag:{class}","response":"non-persistent://tg/response/prompt-rag:{class}","text-completion-request":"non-persistent://tg/request/text-completion-rag:{class}","text-completion-response":"non-persistent://tg/response/text-completion-rag:{class}"},"prompt:{class}":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"text-completion-rag:{class}":{"request":"non-persistent://tg/request/text-completion-rag:{class}","response":"non-persistent://tg/response/text-completion-rag:{class}"},"text-completion:{class}":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"triples-query:{class}":{"request":"non-persistent://tg/request/triples:{class}","response":"non-persistent://tg/response/triples:{class}"}},"description":"GraphRAG
+            only","flow":{"agent-manager:{id}":{"graph-rag-request":"non-persistent://tg/request/graph-rag:{class}","graph-rag-response":"non-persistent://tg/response/graph-rag:{class}","next":"non-persistent://tg/request/agent:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","request":"non-persistent://tg/request/agent:{id}","response":"non-persistent://tg/response/agent:{id}","text-completion-request":"non-persistent://tg/request/text-completion:{class}","text-completion-response":"non-persistent://tg/response/text-completion:{class}"},"chunker:{id}":{"input":"persistent://tg/flow/text-document-load:{id}","output":"persistent://tg/flow/chunk-load:{id}"},"ge-write:{id}":{"input":"persistent://tg/flow/graph-embeddings-store:{id}"},"graph-embeddings:{id}":{"embeddings-request":"non-persistent://tg/request/embeddings:{class}","embeddings-response":"non-persistent://tg/response/embeddings:{class}","input":"persistent://tg/flow/entity-contexts-load:{id}","output":"persistent://tg/flow/graph-embeddings-store:{id}"},"kg-extract-definitions:{id}":{"entity-contexts":"persistent://tg/flow/entity-contexts-load:{id}","input":"persistent://tg/flow/chunk-load:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","triples":"persistent://tg/flow/triples-store:{id}"},"kg-extract-relationships:{id}":{"input":"persistent://tg/flow/chunk-load:{id}","prompt-request":"non-persistent://tg/request/prompt:{class}","prompt-response":"non-persistent://tg/response/prompt:{class}","triples":"persistent://tg/flow/triples-store:{id}"},"pdf-decoder:{id}":{"input":"persistent://tg/flow/document-load:{id}","output":"persistent://tg/flow/text-document-load:{id}"},"triples-write:{id}":{"input":"persistent://tg/flow/triples-store:{id}"}},"interfaces":{"agent":{"request":"non-persistent://tg/request/agent:{id}","response":"non-persistent://tg/response/agent:{id}"},"document-load":"persistent://tg/flow/document-load:{id}","embeddings":{"request":"non-persistent://tg/request/embeddings:{class}","response":"non-persistent://tg/response/embeddings:{class}"},"entity-contexts-load":"persistent://tg/flow/entity-contexts-load:{id}","graph-embeddings":{"request":"non-persistent://tg/request/graph-embeddings:{class}","response":"non-persistent://tg/response/graph-embeddings:{class}"},"graph-embeddings-store":"persistent://tg/flow/graph-embeddings-store:{id}","graph-rag":{"request":"non-persistent://tg/request/graph-rag:{class}","response":"non-persistent://tg/response/graph-rag:{class}"},"prompt":{"request":"non-persistent://tg/request/prompt:{class}","response":"non-persistent://tg/response/prompt:{class}"},"text-completion":{"request":"non-persistent://tg/request/text-completion:{class}","response":"non-persistent://tg/response/text-completion:{class}"},"text-load":"persistent://tg/flow/text-document-load:{id}","triples":{"request":"non-persistent://tg/request/triples:{class}","response":"non-persistent://tg/response/triples:{class}"},"triples-store":"persistent://tg/flow/triples-store:{id}"},"tags":["graph-rag","knowledge-extraction"]}},"flows":{"default":{"class-name":"document-rag+graph-rag","description":"Default
+            processing flow","interfaces":{"agent":{"request":"non-persistent://tg/request/agent:default","response":"non-persistent://tg/response/agent:default"},"document-embeddings":{"request":"non-persistent://tg/request/document-embeddings:document-rag+graph-rag","response":"non-persistent://tg/response/document-embeddings:document-rag+graph-rag"},"document-embeddings-store":"persistent://tg/flow/document-embeddings-store:default","document-load":"persistent://tg/flow/document-load:default","document-rag":{"request":"non-persistent://tg/request/document-rag:document-rag+graph-rag","response":"non-persistent://tg/response/document-rag:document-rag+graph-rag"},"embeddings":{"request":"non-persistent://tg/request/embeddings:document-rag+graph-rag","response":"non-persistent://tg/response/embeddings:document-rag+graph-rag"},"entity-contexts-load":"persistent://tg/flow/entity-contexts-load:default","graph-embeddings":{"request":"non-persistent://tg/request/graph-embeddings:document-rag+graph-rag","response":"non-persistent://tg/response/graph-embeddings:document-rag+graph-rag"},"graph-embeddings-store":"persistent://tg/flow/graph-embeddings-store:default","graph-rag":{"request":"non-persistent://tg/request/graph-rag:document-rag+graph-rag","response":"non-persistent://tg/response/graph-rag:document-rag+graph-rag"},"prompt":{"request":"non-persistent://tg/request/prompt:document-rag+graph-rag","response":"non-persistent://tg/response/prompt:document-rag+graph-rag"},"text-completion":{"request":"non-persistent://tg/request/text-completion:document-rag+graph-rag","response":"non-persistent://tg/response/text-completion:document-rag+graph-rag"},"text-load":"persistent://tg/flow/text-document-load:default","triples":{"request":"non-persistent://tg/request/triples:document-rag+graph-rag","response":"non-persistent://tg/response/triples:document-rag+graph-rag"},"triples-store":"persistent://tg/flow/triples-store:default"}}},"flows-active":{"agent-manager":{"default":{"graph-rag-request":"non-persistent://tg/request/graph-rag:document-rag+graph-rag","graph-rag-response":"non-persistent://tg/response/graph-rag:document-rag+graph-rag","next":"non-persistent://tg/request/agent:default","prompt-request":"non-persistent://tg/request/prompt:document-rag+graph-rag","prompt-response":"non-persistent://tg/response/prompt:document-rag+graph-rag","request":"non-persistent://tg/request/agent:default","response":"non-persistent://tg/response/agent:default","text-completion-request":"non-persistent://tg/request/text-completion:document-rag+graph-rag","text-completion-response":"non-persistent://tg/response/text-completion:document-rag+graph-rag"}},"chunker":{"default":{"input":"persistent://tg/flow/text-document-load:default","output":"persistent://tg/flow/chunk-load:default"}},"de-query":{"document-rag+graph-rag":{"request":"non-persistent://tg/request/document-embeddings:document-rag+graph-rag","response":"non-persistent://tg/response/document-embeddings:document-rag+graph-rag"}},"de-write":{"default":{"input":"persistent://tg/flow/document-embeddings-store:default"}},"document-embeddings":{"default":{"embeddings-request":"non-persistent://tg/request/embeddings:document-rag+graph-rag","embeddings-response":"non-persistent://tg/response/embeddings:document-rag+graph-rag","input":"persistent://tg/flow/chunk-load:default","output":"persistent://tg/flow/document-embeddings-store:default"}},"document-rag":{"document-rag+graph-rag":{"document-embeddings-request":"non-persistent://tg/request/document-embeddings:document-rag+graph-rag","document-embeddings-response":"non-persistent://tg/response/document-embeddings:document-rag+graph-rag","embeddings-request":"non-persistent://tg/request/embeddings:document-rag+graph-rag","embeddings-response":"non-persistent://tg/response/embeddings:document-rag+graph-rag","prompt-request":"non-persistent://tg/request/prompt-rag:document-rag+graph-rag","prompt-response":"non-persistent://tg/response/prompt-rag:document-rag+graph-rag","request":"non-persistent://tg/request/document-rag:document-rag+graph-rag","response":"non-persistent://tg/response/document-rag:document-rag+graph-rag"}},"embeddings":{"document-rag+graph-rag":{"request":"non-persistent://tg/request/embeddings:document-rag+graph-rag","response":"non-persistent://tg/response/embeddings:document-rag+graph-rag"}},"ge-query":{"document-rag+graph-rag":{"request":"non-persistent://tg/request/graph-embeddings:document-rag+graph-rag","response":"non-persistent://tg/response/graph-embeddings:document-rag+graph-rag"}},"ge-write":{"default":{"input":"persistent://tg/flow/graph-embeddings-store:default"}},"graph-embeddings":{"default":{"embeddings-request":"non-persistent://tg/request/embeddings:document-rag+graph-rag","embeddings-response":"non-persistent://tg/response/embeddings:document-rag+graph-rag","input":"persistent://tg/flow/entity-contexts-load:default","output":"persistent://tg/flow/graph-embeddings-store:default"}},"graph-rag":{"document-rag+graph-rag":{"embeddings-request":"non-persistent://tg/request/embeddings:document-rag+graph-rag","embeddings-response":"non-persistent://tg/response/embeddings:document-rag+graph-rag","graph-embeddings-request":"non-persistent://tg/request/graph-embeddings:document-rag+graph-rag","graph-embeddings-response":"non-persistent://tg/response/graph-embeddings:document-rag+graph-rag","prompt-request":"non-persistent://tg/request/prompt-rag:document-rag+graph-rag","prompt-response":"non-persistent://tg/response/prompt-rag:document-rag+graph-rag","request":"non-persistent://tg/request/graph-rag:document-rag+graph-rag","response":"non-persistent://tg/response/graph-rag:document-rag+graph-rag","triples-request":"non-persistent://tg/request/triples:document-rag+graph-rag","triples-response":"non-persistent://tg/response/triples:document-rag+graph-rag"}},"kg-extract-definitions":{"default":{"entity-contexts":"persistent://tg/flow/entity-contexts-load:default","input":"persistent://tg/flow/chunk-load:default","prompt-request":"non-persistent://tg/request/prompt:document-rag+graph-rag","prompt-response":"non-persistent://tg/response/prompt:document-rag+graph-rag","triples":"persistent://tg/flow/triples-store:default"}},"kg-extract-relationships":{"default":{"input":"persistent://tg/flow/chunk-load:default","prompt-request":"non-persistent://tg/request/prompt:document-rag+graph-rag","prompt-response":"non-persistent://tg/response/prompt:document-rag+graph-rag","triples":"persistent://tg/flow/triples-store:default"}},"metering":{"document-rag+graph-rag":{"input":"non-persistent://tg/response/text-completion:document-rag+graph-rag"}},"metering-rag":{"document-rag+graph-rag":{"input":"non-persistent://tg/response/text-completion-rag:document-rag+graph-rag"}},"pdf-decoder":{"default":{"input":"persistent://tg/flow/document-load:default","output":"persistent://tg/flow/text-document-load:default"}},"prompt":{"document-rag+graph-rag":{"request":"non-persistent://tg/request/prompt:document-rag+graph-rag","response":"non-persistent://tg/response/prompt:document-rag+graph-rag","text-completion-request":"non-persistent://tg/request/text-completion:document-rag+graph-rag","text-completion-response":"non-persistent://tg/response/text-completion:document-rag+graph-rag"}},"prompt-rag":{"document-rag+graph-rag":{"request":"non-persistent://tg/request/prompt-rag:document-rag+graph-rag","response":"non-persistent://tg/response/prompt-rag:document-rag+graph-rag","text-completion-request":"non-persistent://tg/request/text-completion-rag:document-rag+graph-rag","text-completion-response":"non-persistent://tg/response/text-completion-rag:document-rag+graph-rag"}},"text-completion":{"document-rag+graph-rag":{"request":"non-persistent://tg/request/text-completion:document-rag+graph-rag","response":"non-persistent://tg/response/text-completion:document-rag+graph-rag"}},"text-completion-rag":{"document-rag+graph-rag":{"request":"non-persistent://tg/request/text-completion-rag:document-rag+graph-rag","response":"non-persistent://tg/response/text-completion-rag:document-rag+graph-rag"}},"triples-query":{"document-rag+graph-rag":{"request":"non-persistent://tg/request/triples:document-rag+graph-rag","response":"non-persistent://tg/response/triples:document-rag+graph-rag"}},"triples-write":{"default":{"input":"persistent://tg/flow/triples-store:default"}}},"interface-descriptions":{"agent":{"description":"Agent
             service","kind":"request-response"},"document-embeddings":{"description":"Document
             embeddings service","kind":"request-response"},"document-embeddings-store":{"description":"Document
             embeddings loader","kind":"send"},"document-load":{"description":"Document
@@ -1200,7 +1205,7 @@ items:
             if the answer is not found in the provided set of knowledge statements.\n\nHere''s
             the knowledge statements:\n{% for edge in knowledge %}({{edge.s}})-[{{edge.p}}]->({{edge.o}})\n{%endfor%}\n\nUse
             only the provided knowledge statements to respond to the following:\n{{query}}\n","response-type":"text"},"template.question":{"prompt":"{{question}}"}},"token-costs":{"anthropic.claude-3-5-sonnet-20240620-v1:0":{"input_price":3.0000000000000001e-06,"model_name":"anthropic.claude-3-5-sonnet-20240620-v1:0","output_price":1.5e-05},"anthropic.claude-3-haiku-20240307-v1:0":{"input_price":2.4999999999999999e-07,"model_name":"anthropic.claude-3-haiku-20240307-v1:0","output_price":1.2500000000000001e-06},"c4ai-aya-23-8b":{"input_price":0,"model_name":"c4ai-aya-23-8b","output_price":0},"claude-3-5-sonnet-20240620":{"input_price":3.0000000000000001e-06,"model_name":"claude-3-5-sonnet-20240620","output_price":1.5e-05},"claude-3-haiku-20240307":{"input_price":2.4999999999999999e-07,"model_name":"claude-3-haiku-20240307","output_price":1.2500000000000001e-06},"claude-3-opus-20240229":{"input_price":1.5e-05,"model_name":"claude-3-opus-20240229","output_price":7.4999999999999993e-05},"claude-3-sonnet-20240229":{"input_price":3.0000000000000001e-06,"model_name":"claude-3-sonnet-20240229","output_price":1.5e-05},"cohere.command-r-plus-v1:0":{"input_price":3.0000000000000001e-06,"model_name":"cohere.command-r-plus-v1:0","output_price":1.5e-05},"command-r-08-202":{"input_price":2.5000000000000002e-06,"model_name":"command-r-08-202","output_price":1.0000000000000001e-05},"gpt-4o":{"input_price":5.0000000000000004e-06,"model_name":"gpt-4o","output_price":1.5e-05},"gpt-4o-2024-05-13":{"input_price":5.0000000000000004e-06,"model_name":"gpt-4o-2024-05-13","output_price":1.5e-05},"gpt-4o-2024-08-06":{"input_price":2.5000000000000002e-06,"model_name":"gpt-4o-2024-08-06","output_price":1.0000000000000001e-05},"gpt-4o-mini":{"input_price":1.4999999999999999e-07,"model_name":"gpt-4o-mini","output_price":5.9999999999999997e-07},"llama.cpp":{"input_price":0,"model_name":"llama.cpp","output_price":0},"meta.llama3-1-405b-instruct-v1:0":{"input_price":5.3199999999999999e-06,"model_name":"meta.llama3-1-405b-instruct-v1:0","output_price":1.5999999999999999e-05},"meta.llama3-1-70b-instruct-v1:0":{"input_price":9.9000000000000005e-07,"model_name":"meta.llama3-1-70b-instruct-v1:0","output_price":9.9000000000000005e-07},"meta.llama3-1-8b-instruct-v1:0":{"input_price":2.2000000000000001e-07,"model_name":"meta.llama3-1-8b-instruct-v1:0","output_price":2.2000000000000001e-07},"mistral.mistral-large-2407-v1:0":{"input_price":3.9999999999999998e-06,"model_name":"mistral.mistral-large-2407-v1:0","output_price":1.2e-05},"mistral.mixtral-8x7b-instruct-v0:1":{"input_price":4.4999999999999998e-07,"model_name":"mistral.mixtral-8x7b-instruct-v0:1","output_price":6.9999999999999997e-07},"ollama":{"input_price":0,"model_name":"ollama","output_price":0}}}'
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: init-trustgraph
           resources:
             limits:
@@ -1235,7 +1240,9 @@ items:
           - kg-extract-definitions
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          - --concurrency
+          - '1'
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: kg-extract-definitions
           resources:
             limits:
@@ -1282,7 +1289,9 @@ items:
           - kg-extract-relationships
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          - --concurrency
+          - '1'
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: kg-extract-relationships
           resources:
             limits:
@@ -1329,7 +1338,7 @@ items:
           - kg-manager
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: kg-manager
           resources:
             limits:
@@ -1376,7 +1385,7 @@ items:
           - kg-store
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: kg-store
           resources:
             limits:
@@ -1423,7 +1432,7 @@ items:
           - librarian
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: librarian
           resources:
             limits:
@@ -1470,7 +1479,7 @@ items:
           - metering
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: metering
           resources:
             limits:
@@ -1519,7 +1528,7 @@ items:
           - pulsar://pulsar:6650
           - --id
           - metering-rag
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: metering-rag
           resources:
             limits:
@@ -1646,15 +1655,15 @@ items:
           - pdf-decoder
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: pdf-decoder
           resources:
             limits:
               cpu: '0.5'
-              memory: 128M
+              memory: 512M
             requests:
               cpu: '0.1'
-              memory: 128M
+              memory: 512M
           securityContext:
             runAsGroup: 0
             runAsUser: 0
@@ -1809,7 +1818,9 @@ items:
           - prompt-template
           - -p
           - pulsar://pulsar:6650
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          - --concurrency
+          - '1'
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: prompt
           resources:
             limits:
@@ -1858,7 +1869,9 @@ items:
           - pulsar://pulsar:6650
           - --id
           - prompt-rag
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          - --concurrency
+          - '1'
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: prompt-rag
           resources:
             limits:
@@ -2255,7 +2268,7 @@ items:
           - pulsar://pulsar:6650
           - -t
           - http://qdrant:6333
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: query-doc-embeddings
           resources:
             limits:
@@ -2304,7 +2317,7 @@ items:
           - pulsar://pulsar:6650
           - -t
           - http://qdrant:6333
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: query-graph-embeddings
           resources:
             limits:
@@ -2353,7 +2366,7 @@ items:
           - pulsar://pulsar:6650
           - -g
           - cassandra
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: query-triples
           resources:
             limits:
@@ -2402,7 +2415,7 @@ items:
           - pulsar://pulsar:6650
           - -t
           - http://qdrant:6333
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: store-doc-embeddings
           resources:
             limits:
@@ -2451,7 +2464,7 @@ items:
           - pulsar://pulsar:6650
           - -t
           - http://qdrant:6333
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: store-graph-embeddings
           resources:
             limits:
@@ -2500,7 +2513,7 @@ items:
           - pulsar://pulsar:6650
           - -g
           - cassandra
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: store-triples
           resources:
             limits:
@@ -2564,7 +2577,7 @@ items:
               secretKeyRef:
                 key: openai-url
                 name: openai-credentials
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: text-completion
           resources:
             limits:
@@ -2630,7 +2643,7 @@ items:
               secretKeyRef:
                 key: openai-url
                 name: openai-credentials
-          image: docker.io/trustgraph/trustgraph-flow:0.23.22
+          image: docker.io/trustgraph/trustgraph-flow:1.0.22
           name: text-completion-rag
           resources:
             limits:
@@ -2673,7 +2686,7 @@ items:
           app: workbench-ui
       spec:
         containers:
-        - image: docker.io/trustgraph/workbench-ui:0.3.1
+        - image: docker.io/trustgraph/workbench-ui:0.3.10
           name: workbench-ui
           ports:
           - containerPort: 8888
