@@ -1,5 +1,7 @@
 # Pulumi Infrastructure Testing Strategy
 
+Currently, only 1) is implemented.
+
 ## 1. **Unit Testing for Pulumi Code**
 - **Jest/Mocha tests** for TypeScript components
 - Mock Pulumi runtime to test resource creation logic
@@ -39,8 +41,8 @@
 4. **Automate with CI/CD**: GitHub Actions or GitLab CI pipeline
 5. **Regular security audits**: Schedule periodic vulnerability scans
 
-## **Critical Security Issues to Address**
-- All containers run as root (UID 0) - implement non-root users
+## **Issues to Consider**
+
 - No NetworkPolicies defined - add pod-to-pod communication rules
 - Development-sized nodes - plan for production sizing
 - Empty gateway authentication secret - implement proper auth
