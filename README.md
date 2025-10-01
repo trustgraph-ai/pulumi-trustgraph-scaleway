@@ -151,3 +151,21 @@ pulumi destroy
 
 Just say yes.
 
+## How the config was built
+
+There's an AI model specified in config.json. Available AI models can be
+found in Scaleway docs.
+- `mistral-nemo-instruct-2407`
+- `mixtral-8x7b-instruct-0123`
+- `llama-3-8b-instruct`
+- `codestral-2405`
+
+The AI model specified in the config.json should match the model in the
+AI endpoint hostname specified in the Pulumi config.
+
+```
+python3 -m venv env
+. env/bin/activate
+pip install --upgrade git+https://github.com/trustgraph-ai/trustgraph-templates@5e839db05e9e278374d510c9cdd0c02ade12aabd
+tg-configurator -t 1.4 -v 1.4.19 --platform ovh-k8s -R > resources.yaml
+```
