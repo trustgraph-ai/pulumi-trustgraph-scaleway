@@ -67,14 +67,14 @@ pulumi login --local
 ```
 
 Pulumi operates in stacks, each stack is a separate deployment.  The
-git repo contains the configuration for a single stack `azure`, so you
+git repo contains the configuration for a single stack `scaleway`, so you
 could:
 
 ```
 pulumi stack init scaleway
 ```
 
-and it will use the configuration in `Pulumi.azure.yaml`.
+and it will use the configuration in `Pulumi.scalway.yaml`.
 
 ## Configure your environment with Scaleway credentials
 
@@ -91,18 +91,18 @@ export SCW_DEFAULT_PROJECT_ID=xxxxxxxxxxxxxx
 ## Modify the local configuration to do what you want
 
 You can edit:
-- settings in `Pulumi.STACKNAME.yaml` e.g. Pulumi.azure.yaml
+- settings in `Pulumi.STACKNAME.yaml` e.g. Pulumi.scaleway.yaml
 - change `resources.yaml` with whatever you want to deploy.
   The resources.yaml file was created using the TrustGraph config portal,
   so you can re-generate your own.
 
 The `Pulumi.STACKNAME.yaml` configuration file contains settings for:
 
-- `trustgraph-azure:region` - Azure deployment location
-- `trustgraph-azure:environment` - Name of the environment you are deploying
+- `trustgraph-scaleway:region` - Scaleway deployment location (e.g. fr-par).
+- `trustgraph-scaleway:environment` - Name of the environment you are deploying
   use a name like: dev, prod etc.
-- `trustgraph-azure:ai-model` - the AI model, look on the Generative AI
-  page of the console to see other options.
+- `trustgraph-scaleway:ai-model` - the AI model, look on the Generative AI
+  page of the console to see other options.  Try mistral-nemo-instruct-2407.
 
 ## Deploy
 
