@@ -25,9 +25,3 @@ export const prefix = "trustgraph-" + environment;
 // TrustGraph version
 export const nodeSize = "DEV1-L";
 export const nodeCount = 2;
-
-// AI stuff
-export const aiModel = cfg.require("ai-model");
-
-
-
