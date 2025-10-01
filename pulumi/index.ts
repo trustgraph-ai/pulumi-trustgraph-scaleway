@@ -156,6 +156,21 @@ const gatewaySecret = new k8s.core.v1.Secret(
     { provider: k8sProvider, dependsOn: appDeploy }
 );
 
+// Generate an (empty) MCP server secret - no authentication
+const mcpServerSecret = new k8s.core.v1.Secret(
+    "mcp-server-secret",
+    {
+        metadata: {
+            name: "mcp-server-secret",
+            namespace: "trustgraph"
+        },
+        stringData: {
+            "mcp-server-secret": ""
+        },
+    },
+    { provider: k8sProvider, dependsOn: appDeploy }
+);
+
 // Generate an AI endpoint secret - URL plus secret token
 const endpointSecret = new k8s.core.v1.Secret(
     "ai-secret",
