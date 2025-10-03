@@ -24,4 +24,4 @@ export const prefix = "trustgraph-" + environment;
 
 // TrustGraph version
 export const nodeSize = "DEV1-L";
-export const nodeCount = 2;
+export const nodeCount = 3;
