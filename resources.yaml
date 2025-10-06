@@ -1854,9 +1854,9 @@ items:
       "non-persistent://tg/response/text-completion:default"}, "text-load": "persistent://tg/flow/text-document-load:default",
       "triples": {"request": "non-persistent://tg/request/triples:default", "response":
       "non-persistent://tg/response/triples:default"}, "triples-store": "persistent://tg/flow/triples-store:default"},
-      "parameters": {"chunk-overlap": "50", "chunk-size": "2000", "llm-model": "mistral-nemo-instruct-2407",
-      "llm-rag-model": "mistral-nemo-instruct-2407", "llm-rag-temperature": "0.300",
-      "llm-temperature": "0.300"}}}, "flows-active": {"agent-manager": {"default":
+      "parameters": {"chunk-overlap": "50", "chunk-size": "2000", "llm-model": "mistral-small-3.2-24b-instruct-2506",
+      "llm-rag-model": "mistral-small-3.2-24b-instruct-2506", "llm-rag-temperature":
+      "0.300", "llm-temperature": "0.300"}}}, "flows-active": {"agent-manager": {"default":
       {"graph-rag-request": "non-persistent://tg/request/graph-rag:default", "graph-rag-response":
       "non-persistent://tg/response/graph-rag:default", "mcp-tool-request": "non-persistent://tg/request/mcp-tool:default",
       "mcp-tool-response": "non-persistent://tg/response/mcp-tool:default", "next":
@@ -1936,9 +1936,9 @@ items:
       "non-persistent://tg/request/objects:default", "objects-query-response": "non-persistent://tg/response/objects:default",
       "request": "non-persistent://tg/request/structured-query:default", "response":
       "non-persistent://tg/response/structured-query:default"}}, "text-completion":
-      {"default": {"model": "mistral-nemo-instruct-2407", "request": "non-persistent://tg/request/text-completion:default",
+      {"default": {"model": "mistral-small-3.2-24b-instruct-2506", "request": "non-persistent://tg/request/text-completion:default",
       "response": "non-persistent://tg/response/text-completion:default"}}, "text-completion-rag":
-      {"default": {"model": "mistral-nemo-instruct-2407", "request": "non-persistent://tg/request/text-completion-rag:default",
+      {"default": {"model": "mistral-small-3.2-24b-instruct-2506", "request": "non-persistent://tg/request/text-completion-rag:default",
       "response": "non-persistent://tg/response/text-completion-rag:default"}}, "triples-query":
       {"default": {"request": "non-persistent://tg/request/triples:default", "response":
       "non-persistent://tg/response/triples:default"}}, "triples-write": {"default":
@@ -1967,7 +1967,7 @@ items:
       50 .. 100", "max": 8000, "min": 0, "placeholder": 50, "required": true, "type":
       "integer"}, "chunk-size": {"default": 2000, "description": "Chunk size", "helper":
       "An integer, usually 2000 .. 8000", "max": 32768, "min": 0, "placeholder": 2000,
-      "required": true, "type": "integer"}, "llm-model": {"default": "mistral-nemo-instruct-2407",
+      "required": true, "type": "integer"}, "llm-model": {"default": "mistral-small-3.2-24b-instruct-2506",
       "description": "LLM model to use", "enum": [{"description": "Mistral small 3.2
       24b instruct (2506)", "id": "mistral-small-3.2-24b-instruct-2506"}], "required":
       true, "type": "string"}, "llm-temperature": {"default": 0.3, "description":
