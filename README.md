@@ -155,10 +155,6 @@ Just say yes.
 
 There's an AI model specified in config.json. Available AI models can be
 found in Scaleway docs.
-- `mistral-nemo-instruct-2407`
-- `mixtral-8x7b-instruct-0123`
-- `llama-3-8b-instruct`
-- `codestral-2405`
 
 The AI model specified in the config.json should match the model in the
 AI endpoint hostname specified in the Pulumi config.
