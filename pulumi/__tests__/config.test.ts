@@ -41,9 +41,9 @@ describe("Configuration Loading", () => {
 
     test("should have correct node configuration", async () => {
         const config = await import("../config");
-        
+
         expect(config.nodeSize).toBe("DEV1-L");
-        expect(config.nodeCount).toBe(2);
+        expect(config.nodeCount).toBe(3);
     });
 
     test("should handle missing environment configuration", async () => {

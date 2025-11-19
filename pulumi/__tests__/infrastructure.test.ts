@@ -119,7 +119,7 @@ spec:
         
         // Test node pool configuration
         expect(nodePool?.inputs.nodeType).toBe("DEV1-L");
-        expect(nodePool?.inputs.size).toBe(2);
+        expect(nodePool?.inputs.size).toBe(3);
         
         // Test Kubernetes secrets
         const secrets = createdResources.filter(r => r.type === "kubernetes:core/v1:Secret");
