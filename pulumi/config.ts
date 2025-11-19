@@ -11,6 +11,9 @@ export const environment = cfg.require("environment");
 // Get 'region', should be something like fr-par, pl-waw
 export const region = cfg.require("region");
 
+// Get 'ai-model', should be something like llama-3.1-8b-instruct
+export const aiModel = cfg.require("ai-model");
+
 // Default tags
 export const tags : { [key : string] : string } = {
 };
