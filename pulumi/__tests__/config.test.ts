@@ -17,7 +17,6 @@ describe("Configuration Loading", () => {
         pulumi.runtime.setAllConfig({
             "project:environment": "test",
             "project:region": "fr-par",
-            "project:ai-model": "llama-3.1-8b-instruct",
         });
     });
 
@@ -27,10 +26,9 @@ describe("Configuration Loading", () => {
 
     test("should load required configuration values", async () => {
         const config = await import("../config");
-        
+
         expect(config.environment).toBe("test");
         expect(config.region).toBe("fr-par");
-        expect(config.aiModel).toBe("llama-3.1-8b-instruct");
     });
 
     test("should generate correct prefix based on environment", async () => {
@@ -49,7 +47,6 @@ describe("Configuration Loading", () => {
     test("should handle missing environment configuration", async () => {
         pulumi.runtime.setAllConfig({
             "project:region": "fr-par",
-            "project:ai-model": "llama-3.1-8b-instruct",
         });
 
         await expect(import("../config")).rejects.toThrow();
@@ -58,16 +55,6 @@ describe("Configuration Loading", () => {
     test("should handle missing region configuration", async () => {
         pulumi.runtime.setAllConfig({
             "project:environment": "test",
-            "project:ai-model": "llama-3.1-8b-instruct",
-        });
-
-        await expect(import("../config")).rejects.toThrow();
-    });
-
-    test("should handle missing ai-model configuration", async () => {
-        pulumi.runtime.setAllConfig({
-            "project:environment": "test",
-            "project:region": "fr-par",
         });
 
         await expect(import("../config")).rejects.toThrow();
