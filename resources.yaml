@@ -48,7 +48,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: agent-manager
           resources:
             limits:
@@ -107,7 +107,7 @@ items:
               secretKeyRef:
                 key: gateway-secret
                 name: gateway-secret
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: api-gateway
           ports:
           - containerPort: 8088
@@ -233,7 +233,7 @@ items:
           - '100'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: chunker
           resources:
             limits:
@@ -282,7 +282,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: config-svc
           resources:
             limits:
@@ -377,7 +377,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: document-embeddings
           resources:
             limits:
@@ -428,7 +428,7 @@ items:
           - '20'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: document-rag
           resources:
             limits:
@@ -479,7 +479,7 @@ items:
           - '1'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: embeddings
           resources:
             limits:
@@ -1186,7 +1186,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: graph-embeddings
           resources:
             limits:
@@ -1243,7 +1243,7 @@ items:
           - '2'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: graph-rag
           resources:
             limits:
@@ -3068,7 +3068,7 @@ items:
           - http://pulsar:8080
           - --config-file
           - /trustgraph/config.json
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: init-trustgraph
           resources:
             limits:
@@ -3113,7 +3113,7 @@ items:
           - '1'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: kg-extract-agent
           resources:
             limits:
@@ -3164,7 +3164,7 @@ items:
           - '1'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: kg-extract-definitions
           resources:
             limits:
@@ -3215,7 +3215,7 @@ items:
           - '1'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: kg-extract-objects
           resources:
             limits:
@@ -3266,7 +3266,7 @@ items:
           - '1'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: kg-extract-ontology
           resources:
             limits:
@@ -3317,7 +3317,7 @@ items:
           - '1'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: kg-extract-relationships
           resources:
             limits:
@@ -3366,7 +3366,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: kg-manager
           resources:
             limits:
@@ -3415,7 +3415,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: kg-store
           resources:
             limits:
@@ -3464,7 +3464,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: librarian
           resources:
             limits:
@@ -3517,7 +3517,7 @@ items:
               secretKeyRef:
                 key: mcp-server-secret
                 name: mcp-server-secret
-          image: docker.io/trustgraph/trustgraph-mcp:1.5.7
+          image: docker.io/trustgraph/trustgraph-mcp:1.6.5
           name: mcp-server
           ports:
           - containerPort: 8000
@@ -3569,7 +3569,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: mcp-tool
           resources:
             limits:
@@ -3618,7 +3618,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: metering
           resources:
             limits:
@@ -3669,7 +3669,7 @@ items:
           - metering-rag
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: metering-rag
           resources:
             limits:
@@ -3798,7 +3798,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: nlp-query
           resources:
             limits:
@@ -3847,7 +3847,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: pdf-decoder
           resources:
             limits:
@@ -4038,7 +4038,7 @@ items:
           - '1'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: prompt
           resources:
             limits:
@@ -4091,7 +4091,7 @@ items:
           - '1'
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: prompt-rag
           resources:
             limits:
@@ -4490,7 +4490,7 @@ items:
           - http://qdrant:6333
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: query-doc-embeddings
           resources:
             limits:
@@ -4541,7 +4541,7 @@ items:
           - http://qdrant:6333
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: query-graph-embeddings
           resources:
             limits:
@@ -4592,7 +4592,7 @@ items:
           - cassandra
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: query-objects
           resources:
             limits:
@@ -4643,7 +4643,7 @@ items:
           - cassandra
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: query-triples
           resources:
             limits:
@@ -4694,7 +4694,7 @@ items:
           - http://qdrant:6333
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: store-doc-embeddings
           resources:
             limits:
@@ -4745,7 +4745,7 @@ items:
           - http://qdrant:6333
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: store-graph-embeddings
           resources:
             limits:
@@ -4796,7 +4796,7 @@ items:
           - cassandra
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: store-objects
           resources:
             limits:
@@ -4847,7 +4847,7 @@ items:
           - cassandra
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: store-triples
           resources:
             limits:
@@ -4896,7 +4896,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: structured-diag
           resources:
             limits:
@@ -4945,7 +4945,7 @@ items:
           - pulsar://pulsar:6650
           - --log-level
           - DEBUG
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: structured-query
           resources:
             limits:
@@ -5009,7 +5009,7 @@ items:
               secretKeyRef:
                 key: openai-url
                 name: openai-credentials
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: text-completion
           resources:
             limits:
@@ -5075,7 +5075,7 @@ items:
               secretKeyRef:
                 key: openai-url
                 name: openai-credentials
-          image: docker.io/trustgraph/trustgraph-flow:1.5.7
+          image: docker.io/trustgraph/trustgraph-flow:1.6.5
           name: text-completion-rag
           resources:
             limits:
@@ -5118,7 +5118,7 @@ items:
           app: workbench-ui
       spec:
         containers:
-        - image: docker.io/trustgraph/workbench-ui:1.3.7
+        - image: docker.io/trustgraph/workbench-ui:1.4.1
           name: workbench-ui
           ports:
           - containerPort: 8888
