@@ -59,6 +59,13 @@ npm install
 
 ## Setup Pulumi
 
+Pulumi can use a secret to encrypt secrets in state information.  This
+turns it off...
+
+```
+export PULUMI_CONFIG_PASSPHRASE=
+```
+
 You need to tell Pulumi which state to use.  You can store this in an S3
 bucket, but for experimentation, you can just use local state:
 
@@ -101,8 +108,6 @@ The `Pulumi.STACKNAME.yaml` configuration file contains settings for:
 - `trustgraph-scaleway:region` - Scaleway deployment location (e.g. fr-par).
 - `trustgraph-scaleway:environment` - Name of the environment you are deploying
   use a name like: dev, prod etc.
-- `trustgraph-scaleway:ai-model` - the AI model, look on the Generative AI
-  page of the console to see other options.  Try mistral-nemo-instruct-2407.
 
 ## Deploy
 
@@ -163,6 +168,6 @@ AI endpoint hostname specified in the Pulumi config.
 rm -rf env
 python3 -m venv env
 . env/bin/activate
-pip install --upgrade git+https://github.com/trustgraph-ai/trustgraph-templates@master
-tg-configurator -t 1.6 -v 1.6.5 --platform scw-k8s -R > resources.yaml
+pip install --upgrade git+https://github.com/trustgraph-ai/trustgraph-templates@27dc7b68
+tg-configurator -t 1.8 -v 1.8.12 --platform scw-k8s -R > resources.yaml
 ```
