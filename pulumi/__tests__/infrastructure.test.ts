@@ -113,7 +113,7 @@ spec:
         expect(apiKey?.inputs.description).toBe("TrustGraph AI key");
         
         // Test cluster configuration
-        expect(cluster?.inputs.version).toBe("1.32.3");
+        expect(cluster?.inputs.version).toBe("1.35.3");
         expect(cluster?.inputs.cni).toBe("cilium");
         expect(cluster?.inputs.deleteAdditionalResources).toBe(false);
         

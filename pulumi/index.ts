@@ -40,7 +40,7 @@ const cluster = new scaleway.kubernetes.Cluster(
     "cluster",
     {
         name: prefix + "-cluster",
-        version: "1.32.10",
+        version: "1.35.3",
         cni: "cilium",
         privateNetworkId: privateNetwork.id,
         deleteAdditionalResources: false,

@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
   "dependencies": {
     "@pulumi/command": "^1.2.1",
     "@pulumi/kubernetes": "^4.28.0",
@@ -6,5 +11,12 @@
     "@pulumi/random": "^4.19.2",
     "@pulumi/tls": "^5.3.1",
     "@pulumiverse/scaleway": "^1.45.0"
+  },
+  "devDependencies": {
+    "@pulumi/pulumi": "^3.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^14",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0"
   }
 }
