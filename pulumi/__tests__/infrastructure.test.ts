@@ -123,12 +123,15 @@ spec:
         
         // Test Kubernetes secrets
         const secrets = createdResources.filter(r => r.type === "kubernetes:core/v1:Secret");
-        const gatewaySecret = secrets.find(s => s.inputs.metadata?.name === "gateway-secret");
+        const iamSecret = secrets.find(s => s.inputs.metadata?.name === "iam-bootstrap-token");
+        const grafanaSecret = secrets.find(s => s.inputs.metadata?.name === "grafana-secret");
         const aiSecret = secrets.find(s => s.inputs.metadata?.name === "openai-credentials");
-        
-        expect(gatewaySecret).toBeDefined();
+
+        expect(iamSecret).toBeDefined();
+        expect(grafanaSecret).toBeDefined();
         expect(aiSecret).toBeDefined();
-        expect(gatewaySecret?.inputs.metadata?.namespace).toBe("trustgraph");
+        expect(iamSecret?.inputs.metadata?.namespace).toBe("trustgraph");
+        expect(grafanaSecret?.inputs.metadata?.namespace).toBe("trustgraph");
         expect(aiSecret?.inputs.metadata?.namespace).toBe("trustgraph");
         
         // console.log(`Created ${createdResources.length} resources:`, createdResources.map(r => r.type));
