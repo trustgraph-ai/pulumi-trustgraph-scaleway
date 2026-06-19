@@ -12,6 +12,9 @@ let resourceCount = 0;
 describe("Infrastructure Creation", () => {
     beforeAll(() => {
         // Mock file system
+        mockedFs.writeFile.mockImplementation(
+            (_path: any, _data: any, cb: any) => cb?.(null)
+        );
         mockedFs.readFileSync.mockReturnValue(`
 apiVersion: v1
 kind: Namespace
@@ -30,8 +33,11 @@ spec:
         // Set up configuration
         pulumi.runtime.setAllConfig({
             "project:environment": "test",
-            "project:region": "fr-par", 
+            "project:region": "fr-par",
             "project:ai-model": "llama-3.1-8b-instruct",
+            "project:domain": "app.example.com",
+            "project:grafana-domain": "grafana.example.com",
+            "project:letsencrypt-email": "test@example.com",
         });
         
         // Set up mocks to capture resource creation
@@ -62,6 +68,10 @@ spec:
                 
                 if (args.type === "scaleway:iam/apiKey:ApiKey") {
                     state.secretKey = "mock-secret-key-value";
+                }
+
+                if (args.type === "kubernetes:core/v1:Service") {
+                    state.status = { loadBalancer: { ingress: [{ ip: "1.2.3.4" }] } };
                 }
                 
                 return { id: mockId, state };
@@ -134,6 +144,65 @@ spec:
         expect(grafanaSecret?.inputs.metadata?.namespace).toBe("trustgraph");
         expect(aiSecret?.inputs.metadata?.namespace).toBe("trustgraph");
         
-        // console.log(`Created ${createdResources.length} resources:`, createdResources.map(r => r.type));
+        // Check for cert-manager resources
+        const certManagerNs = createdResources.find(
+            r => r.type === "kubernetes:core/v1:Namespace" && r.inputs.metadata?.name === "cert-manager"
+        );
+        expect(certManagerNs).toBeDefined();
+
+        const certManagerChart = createdResources.find(
+            r => r.name === "cert-manager"
+                && r.type === "kubernetes:helm.sh/v4:Chart"
+        );
+        expect(certManagerChart).toBeDefined();
+
+        const clusterIssuer = createdResources.find(
+            r => r.type === "kubernetes:cert-manager.io/v1:ClusterIssuer"
+        );
+        expect(clusterIssuer).toBeDefined();
+
+        // Check for Nginx Gateway Fabric resources
+        const ngfNs = createdResources.find(
+            r => r.type === "kubernetes:core/v1:Namespace" && r.inputs.metadata?.name === "nginx-gateway"
+        );
+        expect(ngfNs).toBeDefined();
+
+        const ngfChart = createdResources.find(
+            r => r.name === "nginx-gateway-fabric"
+                && r.type === "kubernetes:helm.sh/v4:Chart"
+        );
+        expect(ngfChart).toBeDefined();
+
+        // Check for Gateway
+        const gw = createdResources.find(
+            r => r.type === "kubernetes:gateway.networking.k8s.io/v1:Gateway"
+        );
+        expect(gw).toBeDefined();
+        expect(gw?.inputs.spec?.gatewayClassName).toBe("nginx");
+        expect(gw?.inputs.spec?.listeners).toHaveLength(3);
+
+        // Check for Certificates
+        const uiCert = createdResources.find(
+            r => r.type === "kubernetes:cert-manager.io/v1:Certificate"
+                && r.name === "ui-cert"
+        );
+        const grafanaCert = createdResources.find(
+            r => r.type === "kubernetes:cert-manager.io/v1:Certificate"
+                && r.name === "grafana-cert"
+        );
+        expect(uiCert).toBeDefined();
+        expect(grafanaCert).toBeDefined();
+
+        // Check for HTTPRoutes
+        const uiRoute = createdResources.find(
+            r => r.type === "kubernetes:gateway.networking.k8s.io/v1:HTTPRoute"
+                && r.name === "ui-route"
+        );
+        const grafanaRoute = createdResources.find(
+            r => r.type === "kubernetes:gateway.networking.k8s.io/v1:HTTPRoute"
+                && r.name === "grafana-route"
+        );
+        expect(uiRoute).toBeDefined();
+        expect(grafanaRoute).toBeDefined();
     });
 });

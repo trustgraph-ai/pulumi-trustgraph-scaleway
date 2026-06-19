@@ -17,6 +17,9 @@ describe("Configuration Loading", () => {
         pulumi.runtime.setAllConfig({
             "project:environment": "test",
             "project:region": "fr-par",
+            "project:domain": "app.example.com",
+            "project:grafana-domain": "grafana.example.com",
+            "project:letsencrypt-email": "test@example.com",
         });
     });
 
@@ -44,9 +47,20 @@ describe("Configuration Loading", () => {
         expect(config.nodeCount).toBe(4);
     });
 
+    test("should load gateway configuration values", async () => {
+        const config = await import("../config");
+
+        expect(config.domain).toBe("app.example.com");
+        expect(config.grafanaDomain).toBe("grafana.example.com");
+        expect(config.letsencryptEmail).toBe("test@example.com");
+    });
+
     test("should handle missing environment configuration", async () => {
         pulumi.runtime.setAllConfig({
             "project:region": "fr-par",
+            "project:domain": "app.example.com",
+            "project:grafana-domain": "grafana.example.com",
+            "project:letsencrypt-email": "test@example.com",
         });
 
         await expect(import("../config")).rejects.toThrow();
@@ -55,6 +69,42 @@ describe("Configuration Loading", () => {
     test("should handle missing region configuration", async () => {
         pulumi.runtime.setAllConfig({
             "project:environment": "test",
+            "project:domain": "app.example.com",
+            "project:grafana-domain": "grafana.example.com",
+            "project:letsencrypt-email": "test@example.com",
+        });
+
+        await expect(import("../config")).rejects.toThrow();
+    });
+
+    test("should handle missing domain configuration", async () => {
+        pulumi.runtime.setAllConfig({
+            "project:environment": "test",
+            "project:region": "fr-par",
+            "project:grafana-domain": "grafana.example.com",
+            "project:letsencrypt-email": "test@example.com",
+        });
+
+        await expect(import("../config")).rejects.toThrow();
+    });
+
+    test("should handle missing grafana-domain configuration", async () => {
+        pulumi.runtime.setAllConfig({
+            "project:environment": "test",
+            "project:region": "fr-par",
+            "project:domain": "app.example.com",
+            "project:letsencrypt-email": "test@example.com",
+        });
+
+        await expect(import("../config")).rejects.toThrow();
+    });
+
+    test("should handle missing letsencrypt-email configuration", async () => {
+        pulumi.runtime.setAllConfig({
+            "project:environment": "test",
+            "project:region": "fr-par",
+            "project:domain": "app.example.com",
+            "project:grafana-domain": "grafana.example.com",
         });
 
         await expect(import("../config")).rejects.toThrow();

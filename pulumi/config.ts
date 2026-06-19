@@ -25,3 +25,7 @@ export const prefix = "trustgraph-" + environment;
 // TrustGraph version
 export const nodeSize = "DEV1-L";
 export const nodeCount = 4;
+
+export const domain = cfg.require("domain");
+export const grafanaDomain = cfg.require("grafana-domain");
+export const letsencryptEmail = cfg.require("letsencrypt-email");

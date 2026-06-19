@@ -2,3 +2,6 @@ encryptionsalt: v1:G0sdswyspGE=:v1:qvr//j1wOQ/TNYdn:+RDSqqZc8RK/NTKkMh0paajyuXmS
 config:
   trustgraph-scaleway:environment: dev
   trustgraph-scaleway:region: fr-par
+  trustgraph-scaleway:domain: app.example.com
+  trustgraph-scaleway:grafana-domain: grafana.example.com
+  trustgraph-scaleway:letsencrypt-email: admin@example.com
