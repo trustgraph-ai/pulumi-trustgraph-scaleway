@@ -9,9 +9,12 @@ platform.
 The full stack includes:
 
 - A Kubernetes cluster
-- Node pool containing 2 nodes
+- Node pool containing 4 nodes
 - An IAM application plus policy granting Gen AI access
-- Deploys a complete TrustGraph stack of resources in AKS
+- Deploys a complete TrustGraph stack of resources in Kubernetes
+- Nginx Gateway Fabric for ingress with Gateway API
+- cert-manager with Let's Encrypt TLS certificates
+- HTTPS access to TrustGraph UI and Grafana via public DNS names
 
 Keys and other configuration for the AI components are configured into
 TrustGraph using secrets.
@@ -108,6 +111,12 @@ The `Pulumi.STACKNAME.yaml` configuration file contains settings for:
 - `trustgraph-scaleway:region` - Scaleway deployment location (e.g. fr-par).
 - `trustgraph-scaleway:environment` - Name of the environment you are deploying
   use a name like: dev, prod etc.
+- `trustgraph-scaleway:domain` - Domain name for the TrustGraph UI
+  (e.g. app.example.com).
+- `trustgraph-scaleway:grafana-domain` - Domain name for Grafana
+  (e.g. grafana.example.com).
+- `trustgraph-scaleway:letsencrypt-email` - Email address for Let's Encrypt
+  certificate registration.
 
 ## Deploy
 
@@ -131,19 +140,34 @@ If something goes wrong while deploying, retry before giving up.
 `pulumi up` is a retryable command and will continue from
 where it left off.
 
+## DNS setup
+
+After deployment, get the LoadBalancer IP assigned to the gateway:
+
+```
+kubectl --kubeconfig kube.cfg -n nginx-gateway get svc
+```
+
+Create DNS A records pointing both your domain and grafana-domain at this
+IP address.  cert-manager will automatically obtain Let's Encrypt TLS
+certificates once DNS resolves.
+
 ## Use the system
 
-To get access to TrustGraph using the `kube.cfg` file, set up some
-port-forwarding.  You'll need multiple terminal windows to run each of
-these commands:
+Once DNS is configured, access the services at:
+
+- TrustGraph UI: `https://<your-domain>`
+- Grafana: `https://<your-grafana-domain>`
+
+Alternatively, you can use port-forwarding with the `kube.cfg` file:
 
 ```
 kubectl --kubeconfig kube.cfg -n trustgraph port-forward service/api-gateway 8088:8088
-kubectl --kubeconfig kube.cfg -n trustgraph port-forward service/workbench-ui 8888:8888
+kubectl --kubeconfig kube.cfg -n trustgraph port-forward service/trustgraph-ui 8888:8888
 kubectl --kubeconfig kube.cfg -n trustgraph port-forward service/grafana 3000:3000
 ```
 
-This will allow you to access Grafana and the Workbench UI from your local
+This will allow you to access Grafana and the TrustGraph UI from your local
 browser using `http://localhost:3000` and `http://localhost:8888`
 respectively.
 
@@ -163,7 +187,7 @@ export TRUSTGRAPH_TOKEN=$(pulumi stack output iamToken --show-secrets)
 ```
 
 
-## Deploy
+## Destroy
 
 ```
 pulumi destroy
@@ -180,5 +204,5 @@ The AI model specified in the config.json should match the model in the
 AI endpoint hostname specified in the Pulumi config.
 
 ```
-./update-config scw-k8s 2.4.29
+./update-config scw-k8s 2.5.16
 ```

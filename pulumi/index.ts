@@ -1,11 +1,13 @@
 
-import * as scaleway from '@pulumiverse/scaleway';
 import * as pulumi from '@pulumi/pulumi';
 import * as k8s from '@pulumi/kubernetes';
 import * as random from '@pulumi/random';
-import * as fs from 'fs';
+import * as scaleway from '@pulumiverse/scaleway';
 
-import { prefix, region, nodeSize, nodeCount } from './config';
+import { provider, project, aiUrl, nodePool, k8sProvider } from './cluster';
+import { appDeploy } from './application';
+
+import { gatewayIp } from './gateway';
 
 const iamBootstrapToken = new random.RandomPassword(
     "iam-bootstrap-token",
@@ -22,76 +24,6 @@ const grafanaAdminPassword = new random.RandomPassword(
         special: true,
         overrideSpecial: "!@#$%^&*",
     },
-);
-
-// Scaleway provider, allows setting the default region
-const provider = new scaleway.Provider(
-    "scaleway-provider",
-    {
-        region: region
-    }
-);
-
-// Get project information
-const project = scaleway.account.getProjectOutput(
-    {},
-    { provider: provider }
-);
-
-// If you know the project ID, you can work out the Generative AI endpoint
-// URL
-const aiUrl = project.id.apply(
-    proj => `https://api.scaleway.ai/${proj}/v1`
-);
-
-// Create a private network
-const privateNetwork = new scaleway.network.PrivateNetwork(
-    "private-network",
-    {
-        name: prefix,
-    },
-    { provider: provider }
-);
-
-// Create a K8s cluster
-const cluster = new scaleway.kubernetes.Cluster(
-    "cluster",
-    {
-        name: prefix + "-cluster",
-        version: "1.35.3",
-        cni: "cilium",
-        privateNetworkId: privateNetwork.id,
-        deleteAdditionalResources: false,
-    },
-    { provider: provider }
-);
-
-// Create a nodepool for the cluster
-const nodePool = new scaleway.kubernetes.Pool(
-    "node-pool",
-    {
-        clusterId: cluster.id,
-        name: prefix + "-pool",
-        nodeType: nodeSize,
-        size: nodeCount,
-    },
-    { provider: provider }
-);
-
-// Get the kubeconfig for the cluster.  This has to depend on the node pool
-// being setup
-const kubeconfig = pulumi.all([
-    cluster.kubeconfigs, nodePool.id
-]).apply(
-    ([kconf, node]) => kconf[0].configFile
-);
-
-// Create a Kubernetes provider using the cluster's kubeconfig
-const k8sProvider = new k8s.Provider(
-    "k8sProvider",
-    {
-        kubeconfig: kubeconfig,
-    }
 );
 
 // Create an IAM application
@@ -126,37 +58,6 @@ const apiKey = new scaleway.iam.ApiKey(
         description: "TrustGraph AI key",
     },
     { provider: provider }
-);
-
-// Write the kubeconfig to a file
-kubeconfig.apply(
-    (key : string) => {
-        fs.writeFile(
-            "kube.cfg",
-            key,
-            err => {
-                if (err) {
-                    console.log(err);
-                    throw(err);
-                } else {
-                    console.log("Wrote kube.cfg.");
-                }
-            }
-        );
-    }
-);
-
-// Get application resource definitions
-const resourceDefs = fs.readFileSync("../resources.yaml", {encoding: "utf-8"});
-
-// Deploy resources to the K8s cluster
-const appDeploy = new k8s.yaml.v2.ConfigGroup(
-    "resources",
-    {
-        yaml: resourceDefs,
-        skipAwait: true,
-    },
-    { provider: k8sProvider }
 );
 
 const iamSecret = new k8s.core.v1.Secret(
@@ -207,3 +108,4 @@ export const iamToken = pulumi.interpolate`tg_${iamBootstrapToken.result}`;
 
 export const grafanaPassword = grafanaAdminPassword.result;
 
+export { gatewayIp };
